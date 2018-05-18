@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">minesweeper_legacy</string>
+    <string name="backToastText">Press again to exit</string>
+    <string name="menuButtonPlay">Play</string>
+    <string name="menuButtonSettings">Settings</string>
+    <string name="menuButtonScores">Scores</string>
+    <string name="modeSelectText">Select a mode:</string>
+</resources>
