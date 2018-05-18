@@ -2,31 +2,37 @@ package com.production.teman.minesweeper_legacy
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.content.Intent
 import android.support.design.widget.FloatingActionButton
 import android.view.View
 
 private lateinit var floatingButtonBack: FloatingActionButton
 private lateinit var decorView: View
 private var uiOptions: Int = 0
+private lateinit var thread: Thread
 
-class ScoresActivity : AppCompatActivity(), View.OnClickListener {
+class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scores)
+        setContentView(R.layout.activity_splash_screen)
 
         fullscreenEnabler()
 
-        floatingButtonBack = findViewById(R.id.floatingButtonBack)
-        floatingButtonBack.setOnClickListener(this)
-    }
+        thread = object : Thread() {
+            override fun run() {
+                try {
+                    Thread.sleep(3000)
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.floatingButtonBack -> {
-                finish()
             }
         }
+        thread.start()
     }
 
     private fun fullscreenEnabler() {

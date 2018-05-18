@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
+        exitFlag = false
     }
 
     private fun fullscreenEnabler() {
@@ -57,5 +58,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        fullscreenEnabler()
     }
 }

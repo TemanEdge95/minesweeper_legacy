@@ -1,6 +1,7 @@
 package com.production.teman.minesweeper_legacy
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ class gamemodeAdapter(private val dataset: Array<String>,
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val textView = view.textViewItem
         val textDescription = view.textViewDescription
+        val button = view.floatingButtonItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -26,6 +28,10 @@ class gamemodeAdapter(private val dataset: Array<String>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.textView?.text = dataset.get(position)
         holder?.textDescription?.text = datasetDescription.get(position)
+        holder?.button?.setOnClickListener({
+            gamemodeSelected = position
+            var context: Context = it.context
+            context.startActivity(Intent(context, GamePresetsActivity::class.java))
+        })
     }
-
 }

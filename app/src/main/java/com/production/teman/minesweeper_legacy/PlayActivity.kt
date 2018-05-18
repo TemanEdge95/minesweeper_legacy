@@ -1,5 +1,6 @@
 package com.production.teman.minesweeper_legacy
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -59,5 +60,11 @@ class PlayActivity : AppCompatActivity(), View.OnClickListener {
         decorView = window.decorView
         uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         decorView.systemUiVisibility = uiOptions
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        fullscreenEnabler()
     }
 }
