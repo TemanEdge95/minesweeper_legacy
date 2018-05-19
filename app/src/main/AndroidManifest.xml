@@ -17,12 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ScoresActivity" />
-        <activity android:name=".PlayActivity" />
-        <activity android:name=".GamemodeListItem" />
-        <activity android:name=".GamePresetsActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".secondLayer.SettingsActivity" />
+        <activity android:name=".secondLayer.ScoresActivity" />
+        <activity android:name=".secondLayer.PlayActivity" />
+        <activity android:name=".adapters.GamemodeListItem" />
+        <activity android:name=".thirdLayer.GamePresetsActivity" />
+        <activity android:name=".firstLayer.MainActivity"></activity>
     </application>
 
 </manifest>

@@ -1,19 +1,20 @@
-package com.production.teman.minesweeper_legacy
+package com.production.teman.minesweeper_legacy.secondLayer
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.view.View
+import com.production.teman.minesweeper_legacy.R
 
 private lateinit var floatingButtonBack: FloatingActionButton
 private lateinit var decorView: View
 private var uiOptions: Int = 0
 
-class ScoresActivity : AppCompatActivity(), View.OnClickListener {
+class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scores)
+        setContentView(R.layout.activity_settings)
 
         fullscreenEnabler()
 

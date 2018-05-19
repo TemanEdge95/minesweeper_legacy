@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.content.Intent
 import android.support.design.widget.FloatingActionButton
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import com.production.teman.minesweeper_legacy.firstLayer.MainActivity
 
 private lateinit var floatingButtonBack: FloatingActionButton
 private lateinit var decorView: View
 private var uiOptions: Int = 0
 private lateinit var thread: Thread
+private lateinit var imageViewSplash: ImageView
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -18,6 +22,9 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         fullscreenEnabler()
+
+        imageViewSplash = findViewById(R.id.imageViewSplashScreen)
+        imageViewSplash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.alpha_anim))
 
         thread = object : Thread() {
             override fun run() {
@@ -29,7 +36,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-
             }
         }
         thread.start()

@@ -1,6 +1,5 @@
-package com.production.teman.minesweeper_legacy
+package com.production.teman.minesweeper_legacy.secondLayer
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -8,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.production.teman.minesweeper_legacy.R
+import com.production.teman.minesweeper_legacy.adapters.gamemodeAdapter
 
 private lateinit var floatingButtonBack: FloatingActionButton
 private lateinit var decorView: View
@@ -18,9 +19,8 @@ private lateinit var rvAdapter: RecyclerView.Adapter<*>
 private lateinit var rvManager: RecyclerView.LayoutManager
 private lateinit var snapHelper: LinearSnapHelper
 
-var gamemodeList: Array<String> = arrayOf("Classic", "Sandbox", "Adventure")
-var gamemodeDescription: Array<String> = arrayOf("Just a classic mode. Have fun.",
-        "Like classic one, but with settings.", "Look at this new way to play minesweeper!")
+private lateinit var gamemodeList: Array<String>
+private lateinit var gamemodeDescription: Array<String>
 
 class PlayActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,6 +29,9 @@ class PlayActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_play)
 
         fullscreenEnabler()
+
+        gamemodeList = applicationContext.resources.getStringArray(R.array.gamemodes)
+        gamemodeDescription = applicationContext.resources.getStringArray(R.array.gmDescr)
 
         floatingButtonBack = findViewById(R.id.floatingButtonBack)
         floatingButtonBack.setOnClickListener(this)

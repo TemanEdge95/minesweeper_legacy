@@ -1,11 +1,42 @@
 <resources>
     <string name="app_name">minesweeper_legacy</string>
+
+    <string name="splashScreenText">Developed by Artyom Zyev</string>
+
+    <!-- Toasts -->
     <string name="backToastText">Repeat again to exit</string>
+    <string name="backPresets">Repeat again to quit presets</string>
+
+    <!-- Menu buttons -->
     <string name="menuButtonPlay">Play</string>
     <string name="menuButtonSettings">Settings</string>
     <string name="menuButtonScores">Scores</string>
+
+    <!-- Headers -->
     <string name="modeSelectText">Select a mode:</string>
     <string name="presetsText">Set presets:</string>
-    <string name="backPresets">Repeat again to quit presets</string>
-    <string name="splashScreenText">Developed by Artyom Zyev</string>
+    <string name="settingsHeader">Settings:</string>
+    <string name="scoresHeader">Scores:</string>
+
+    <!-- gamemodes -->
+    <string-array name="gamemodes">
+        <item>Classic</item>
+        <item>Sandbox</item>
+        <item>Adventure</item>
+    </string-array>
+
+    <!-- Full short description, for cards -->
+    <string-array name="gmDescr">
+        <item>Just a classic mode. Have fun.</item>
+        <item>Like classic one, but with settings.</item>
+        <item>Look at this new way to play minesweeper!</item>
+    </string-array>
+
+    <!-- Full gamemode description -->
+    <string-array name="gmFullDescr">
+        <item>Classic mode includes 3 presets. Just pick 1 of them and play. Have fun!</item>
+        <item>Sandbox mode includes lots of presets for you. Be careful with them, they can make your game hard enough.</item>
+        <item>Adventure mode is currently in develop. Stay tuned!</item>
+    </string-array>
+
 </resources>
