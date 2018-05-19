@@ -22,7 +22,10 @@
         <activity android:name=".secondLayer.PlayActivity" />
         <activity android:name=".adapters.GamemodeListItem" />
         <activity android:name=".thirdLayer.GamePresetsActivity" />
-        <activity android:name=".firstLayer.MainActivity"></activity>
+        <activity android:name=".firstLayer.MainActivity" />
+        <activity android:name=".adapters.ScoresListItem" />
+        <activity android:name=".thirdLayer.FullScoreActivity" />
+        <activity android:name=".adapters.FullScoreListItem"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.production.teman.minesweeper_legacy.R
+import com.production.teman.minesweeper_legacy.Support.LinePagerIndicatorDecoration
 import com.production.teman.minesweeper_legacy.adapters.gamemodeAdapter
 
 private lateinit var floatingButtonBack: FloatingActionButton
@@ -49,6 +50,8 @@ class PlayActivity : AppCompatActivity(), View.OnClickListener {
         snapHelper.attachToRecyclerView(rv)
 
         rv.scrollToPosition(0)
+
+        rv.addItemDecoration(LinePagerIndicatorDecoration())
     }
 
     override fun onClick(v: View?) {

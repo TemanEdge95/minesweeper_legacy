@@ -17,6 +17,7 @@
     <string name="presetsText">Set presets:</string>
     <string name="settingsHeader">Settings:</string>
     <string name="scoresHeader">Scores:</string>
+    <string name="fullScoresText">Full scores:</string>
 
     <!-- gamemodes -->
     <string-array name="gamemodes">
@@ -32,11 +33,17 @@
         <item>Look at this new way to play minesweeper!</item>
     </string-array>
 
+    <!-- For score menu -->
+    <string-array name="scoreDescr">
+        <item>Score for classic mode</item>
+        <item>Score for sandbox mode</item>
+        <item>Score for adventure mode</item>
+    </string-array>
+
     <!-- Full gamemode description -->
     <string-array name="gmFullDescr">
         <item>Classic mode includes 3 presets. Just pick 1 of them and play. Have fun!</item>
         <item>Sandbox mode includes lots of presets for you. Be careful with them, they can make your game hard enough.</item>
         <item>Adventure mode is currently in develop. Stay tuned!</item>
     </string-array>
-
 </resources>

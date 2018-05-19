@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.production.teman.minesweeper_legacy.R
+import org.w3c.dom.Text
 import java.util.concurrent.TimeUnit
 
 private lateinit var floatingButtonBack: FloatingActionButton
@@ -17,11 +18,14 @@ private var uiOptions: Int = 0
 
 var gamemodeSelected: Int = 0
 private var backFlag: Boolean = false
+
 lateinit var textViewPresets: TextView
+lateinit var textViewPresetsHead: TextView
 
 private lateinit var backToast: Toast
 
 private lateinit var gamemodePresets: Array<String>
+private lateinit var gamemodeHead: Array<String>
 
 private lateinit var threadTimerPresets: Thread
 
@@ -34,6 +38,7 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
         fullscreenEnabler()
 
         gamemodePresets = applicationContext.resources.getStringArray(R.array.gmFullDescr)
+        gamemodeHead = applicationContext.resources.getStringArray(R.array.gamemodes)
 
         floatingButtonBack = findViewById(R.id.floatingButtonBack)
         floatingButtonBack.setOnClickListener(this)
@@ -42,6 +47,9 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
 
         textViewPresets = findViewById(R.id.textViewPresets)
         textViewPresets.text = gamemodePresets.get(gamemodeSelected)
+
+        textViewPresetsHead = findViewById(R.id.textViewPresetsHead)
+        textViewPresetsHead.text = gamemodeHead.get(gamemodeSelected)
     }
 
     override fun onClick(v: View?) {

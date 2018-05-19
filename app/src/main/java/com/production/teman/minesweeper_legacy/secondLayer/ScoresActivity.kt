@@ -3,12 +3,22 @@ package com.production.teman.minesweeper_legacy.secondLayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.production.teman.minesweeper_legacy.R
+import com.production.teman.minesweeper_legacy.adapters.FullScoreAdapter
 
 private lateinit var floatingButtonBack: FloatingActionButton
 private lateinit var decorView: View
 private var uiOptions: Int = 0
+
+private lateinit var rv: RecyclerView
+private lateinit var rvAdapter: RecyclerView.Adapter<*>
+private lateinit var rvManager: RecyclerView.LayoutManager
+
+private lateinit var gamemodeList: Array<String>
+private lateinit var gamemodeDescription: Array<String>
 
 class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -20,6 +30,21 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
         floatingButtonBack = findViewById(R.id.floatingButtonBack)
         floatingButtonBack.setOnClickListener(this)
+
+        gamemodeList = applicationContext.resources.getStringArray(R.array.gamemodes)
+        gamemodeDescription = applicationContext.resources.getStringArray(R.array.scoreDescr)
+
+        rvManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvAdapter = FullScoreAdapter(gamemodeList, gamemodeDescription, this)
+
+        floatingButtonBack = findViewById(R.id.floatingButtonBack)
+        floatingButtonBack.setOnClickListener(this)
+
+        rv = findViewById<RecyclerView>(R.id.scoresRecycler).apply {
+            setHasFixedSize(true)
+            layoutManager = rvManager
+            adapter = rvAdapter
+        }
     }
 
     override fun onClick(v: View?) {
