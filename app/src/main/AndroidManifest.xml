@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.production.teman.minesweeper_legacy">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,12 +23,12 @@
         <activity android:name=".secondLayer.SettingsActivity" />
         <activity android:name=".secondLayer.ScoresActivity" />
         <activity android:name=".secondLayer.PlayActivity" />
-        <activity android:name=".adapters.GamemodeListItem" />
+        <activity android:name=".items.GamemodeListItem" />
         <activity android:name=".thirdLayer.GamePresetsActivity" />
         <activity android:name=".firstLayer.MainActivity" />
-        <activity android:name=".adapters.ScoresListItem" />
+        <activity android:name=".items.ScoresListItem" />
         <activity android:name=".thirdLayer.FullScoreActivity" />
-        <activity android:name=".adapters.FullScoreListItem"></activity>
+        <activity android:name=".items.fullScoreListItemActivity"></activity>
     </application>
 
 </manifest>

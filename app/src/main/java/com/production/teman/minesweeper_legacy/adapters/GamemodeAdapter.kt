@@ -21,6 +21,8 @@ class gamemodeAdapter(private val dataset: Array<String>,
         val textView = view.textViewItem
         val textDescription = view.textViewDescription
         val button = view.floatingButtonItem
+        val imageViewIcon = view.imageViewIcon4
+        val imageView = view.imageViewItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -36,5 +38,20 @@ class gamemodeAdapter(private val dataset: Array<String>,
             var context: Context = it.context
             context.startActivity(Intent(context, GamePresetsActivity::class.java))
         })
+
+        when (position) {
+            0 -> {
+                holder?.imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+                holder?.imageView.setImageResource(R.drawable.ic_launcher_background)
+            }
+            1 -> {
+                holder?.imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+                holder?.imageView.setImageResource(R.drawable.ic_launcher_background)
+            }
+            2 -> {
+                holder?.imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+                holder?.imageView.setImageResource(R.drawable.ic_launcher_background)
+            }
+        }
     }
 }

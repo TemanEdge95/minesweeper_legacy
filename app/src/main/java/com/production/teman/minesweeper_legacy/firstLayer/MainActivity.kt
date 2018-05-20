@@ -13,6 +13,7 @@ import com.production.teman.minesweeper_legacy.secondLayer.ScoresActivity
 import com.production.teman.minesweeper_legacy.secondLayer.SettingsActivity
 import java.util.concurrent.TimeUnit
 
+
 private var exitFlag: Boolean = false
 private lateinit var threadTimerMain: Thread
 

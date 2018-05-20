@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.production.teman.minesweeper_legacy.R
@@ -29,6 +30,8 @@ private lateinit var gamemodeHead: Array<String>
 
 private lateinit var threadTimerPresets: Thread
 
+private lateinit var imageViewIcon: ImageView
+
 class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +53,13 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
 
         textViewPresetsHead = findViewById(R.id.textViewPresetsHead)
         textViewPresetsHead.text = gamemodeHead.get(gamemodeSelected)
+
+        imageViewIcon = findViewById(R.id.imageViewIcon)
+        when (scoreMode) {
+            0 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+            1 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+            2 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+        }
     }
 
     override fun onClick(v: View?) {

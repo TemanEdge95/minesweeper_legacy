@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.production.teman.minesweeper_legacy.R
 import com.production.teman.minesweeper_legacy.thirdLayer.FullScoreActivity
 import com.production.teman.minesweeper_legacy.thirdLayer.scoreMode
-import kotlinx.android.synthetic.main.activity_gamemode_list_item.view.*
+import kotlinx.android.synthetic.main.activity_scores_list_item.view.*
 
 class FullScoreAdapter(private val dataset: Array<String>,
                        private val datasetDescription: Array<String>, val context: Context) :
@@ -18,9 +18,11 @@ class FullScoreAdapter(private val dataset: Array<String>,
     override fun getItemCount() = dataset.size
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val textView = view.textViewItem
-        val textDescription = view.textViewDescription
+        val textView = view.textViewItemFull
+        val textDescription = view.textViewDescriptionFull
         val button = view.floatingButtonItem
+        val imageViewIcon = view.imageViewIconFull
+        val imageView = view.imageViewItemFull
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -36,5 +38,19 @@ class FullScoreAdapter(private val dataset: Array<String>,
             var context: Context = it.context
             context.startActivity(Intent(context, FullScoreActivity::class.java))
         })
+        when (position) {
+            0 -> {
+                holder?.imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+                holder?.imageView.setImageResource(R.drawable.ic_launcher_background)
+            }
+            1 -> {
+                holder?.imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+                holder?.imageView.setImageResource(R.drawable.ic_launcher_background)
+            }
+            2 -> {
+                holder?.imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+                holder?.imageView.setImageResource(R.drawable.ic_launcher_background)
+            }
+        }
     }
 }
