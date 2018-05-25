@@ -6,11 +6,15 @@
     <!-- Toasts -->
     <string name="backToastText">Repeat again to exit</string>
     <string name="backPresets">Repeat again to quit presets</string>
+    <string name="clearScoresText">Repeat again to clear scores</string>
+    <string name="clearScoresTextTrue">Scores are now cleared</string>
 
     <!-- Menu buttons -->
     <string name="menuButtonPlay">Play</string>
     <string name="menuButtonSettings">Settings</string>
     <string name="menuButtonScores">Scores</string>
+    <string name="settingsButtonClear">Clear Scores</string>
+    <string name="settingsButtonAbout">About app</string>
 
     <!-- Headers -->
     <string name="modeSelectText">Select a mode:</string>
@@ -18,6 +22,17 @@
     <string name="settingsHeader">Settings:</string>
     <string name="scoresHeader">Scores:</string>
     <string name="fullScoresText">Full scores:</string>
+    <string name="aboutHeader">About app:</string>
+
+    <!-- Long text -->
+    <string name="poweredBy"><b>Powered by:</b>\n
+        Kotlin</string>
+    <string name="madeIn"><b>Made in:</b>\n
+        Android Studio</string>
+    <string name="aboutDev"><b>Developed by:</b>\n
+        Artyom Zyev\n
+        (aka: TemanEdge95)
+    </string>
 
     <!-- gamemodes -->
     <string-array name="gamemodes">

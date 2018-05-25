@@ -3,6 +3,9 @@ package com.production.teman.minesweeper_legacy
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.view.animation.AnimationUtils
