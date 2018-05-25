@@ -28,7 +28,8 @@
         <activity android:name=".firstLayer.MainActivity" />
         <activity android:name=".items.ScoresListItem" />
         <activity android:name=".thirdLayer.FullScoreActivity" />
-        <activity android:name=".items.fullScoreListItemActivity"></activity>
+        <activity android:name=".items.fullScoreListItemActivity" />
+        <activity android:name=".zeroLayer.PermissionActivity"></activity>
     </application>
 
 </manifest>

@@ -11,8 +11,10 @@ import com.production.teman.minesweeper_legacy.R
 import com.production.teman.minesweeper_legacy.secondLayer.PlayActivity
 import com.production.teman.minesweeper_legacy.secondLayer.ScoresActivity
 import com.production.teman.minesweeper_legacy.secondLayer.SettingsActivity
+import java.io.File
 import java.util.concurrent.TimeUnit
 
+lateinit var file: File
 
 private var exitFlag: Boolean = false
 private lateinit var threadTimerMain: Thread
@@ -32,6 +34,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonPlay.setOnClickListener(this)
         buttonScores.setOnClickListener(this)
         buttonSettings.setOnClickListener(this)
+
+        checkScoreFiles()
+    }
+
+    private fun checkScoreFiles() {
+        var filePath = applicationInfo.dataDir
+        var fileName = ""
+        for (i in 0..2) {
+            when (i) {
+                0 -> fileName = "classic.score"
+                1 -> fileName = "sandbox.score"
+                2 -> fileName = "adventure.score"
+            }
+            var fileFull: File = File(filePath, fileName)
+            if (!fileFull.exists()) fileFull.createNewFile()
+        }
     }
 
     override fun onClick(v: View?) {
