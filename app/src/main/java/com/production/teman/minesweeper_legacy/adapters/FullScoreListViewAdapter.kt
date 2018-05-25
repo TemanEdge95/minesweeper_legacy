@@ -50,9 +50,9 @@ class FullScoreListViewAdapter(private var activity: Activity, private var items
         viewHolder.txtCounter?.text = (position + 1).toString()
 
         when (position) {
-            0 -> viewHolder.imageView?.setImageResource(R.drawable.ic_launcher_background)
-            1 -> viewHolder.imageView?.setImageResource(R.drawable.ic_launcher_background)
-            2 -> viewHolder.imageView?.setImageResource(R.drawable.ic_launcher_background)
+            0 -> viewHolder.imageView?.setImageResource(R.drawable.ic_trophy_first)
+            1 -> viewHolder.imageView?.setImageResource(R.drawable.ic_trophy_second)
+            2 -> viewHolder.imageView?.setImageResource(R.drawable.ic_trophy_third)
         }
 
         if (position > 2) viewHolder.imageView?.visibility = View.INVISIBLE

@@ -55,10 +55,10 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
         textViewPresetsHead.text = gamemodeHead.get(gamemodeSelected)
 
         imageViewIcon = findViewById(R.id.imageViewIcon)
-        when (scoreMode) {
-            0 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
-            1 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
-            2 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+        when (gamemodeSelected) {
+            0 -> imageViewIcon.setImageResource(R.drawable.ic_mode_classic)
+            1 -> imageViewIcon.setImageResource(R.drawable.ic_mode_sandbox)
+            2 -> imageViewIcon.setImageResource(R.drawable.ic_mode_adventure)
         }
     }
 

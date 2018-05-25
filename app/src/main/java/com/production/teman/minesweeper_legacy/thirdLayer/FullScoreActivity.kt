@@ -60,9 +60,9 @@ class FullScoreActivity : AppCompatActivity(), View.OnClickListener {
 
         imageViewIcon = findViewById(R.id.imageViewIcon)
         when (scoreMode) {
-            0 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
-            1 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
-            2 -> imageViewIcon.setImageResource(R.drawable.ic_launcher_background)
+            0 -> imageViewIcon.setImageResource(R.drawable.ic_mode_classic)
+            1 -> imageViewIcon.setImageResource(R.drawable.ic_mode_sandbox)
+            2 -> imageViewIcon.setImageResource(R.drawable.ic_mode_adventure)
         }
 
         listView = findViewById(R.id.listViewFullScore)
