@@ -1,16 +1,25 @@
 package com.production.teman.minesweeper_legacy.thirdLayer
 
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearSnapHelper
+import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.production.teman.minesweeper_legacy.R
-import org.w3c.dom.Text
+import com.production.teman.minesweeper_legacy.adapters.classicModeAdapter
+import com.production.teman.minesweeper_legacy.fragments.AdventureFragment
+import com.production.teman.minesweeper_legacy.fragments.ClassicFragment
+import com.production.teman.minesweeper_legacy.fragments.SandboxFragment
 import java.util.concurrent.TimeUnit
 
 private lateinit var floatingButtonBack: FloatingActionButton
@@ -29,10 +38,14 @@ private lateinit var gamemodePresets: Array<String>
 private lateinit var gamemodeHead: Array<String>
 
 private lateinit var threadTimerPresets: Thread
-
 private lateinit var imageViewIcon: ImageView
 
-class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
+
+
+class GamePresetsActivity : AppCompatActivity(), View.OnClickListener,
+        ClassicFragment.OnFragmentInteractionListener,
+        SandboxFragment.OnFragmentInteractionListener,
+        AdventureFragment.OnFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +68,27 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener {
         textViewPresetsHead.text = gamemodeHead.get(gamemodeSelected)
 
         imageViewIcon = findViewById(R.id.imageViewIcon)
+
+        var fragmentManager = supportFragmentManager
+
         when (gamemodeSelected) {
-            0 -> imageViewIcon.setImageResource(R.drawable.ic_mode_classic)
-            1 -> imageViewIcon.setImageResource(R.drawable.ic_mode_sandbox)
-            2 -> imageViewIcon.setImageResource(R.drawable.ic_mode_adventure)
+            0 -> {
+                fragmentManager.beginTransaction().replace(R.id.framePresets, ClassicFragment()).commit()
+                imageViewIcon.setImageResource(R.drawable.ic_mode_classic)
+            }
+            1 -> {
+                fragmentManager.beginTransaction().replace(R.id.framePresets, SandboxFragment()).commit()
+                imageViewIcon.setImageResource(R.drawable.ic_mode_sandbox)
+            }
+            2 -> {
+                fragmentManager.beginTransaction().replace(R.id.framePresets, AdventureFragment()).commit()
+                imageViewIcon.setImageResource(R.drawable.ic_mode_adventure)
+            }
         }
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+        //
     }
 
     override fun onClick(v: View?) {

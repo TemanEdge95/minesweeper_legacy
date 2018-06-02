@@ -3,10 +3,15 @@
 
     <string name="splashScreenText">Developed by Artyom Zyev</string>
 
+    <!-- For alert dialogues -->
+    <string name="alertClear">This action will clear all your scores.\n
+    Accept it?</string>
+    <string name="buttonClearCancel">Cancel</string>
+    <string name="buttonClearAccept">Accept</string>
+
     <!-- Toasts -->
     <string name="backToastText">Repeat again to exit</string>
     <string name="backPresets">Repeat again to quit presets</string>
-    <string name="clearScoresText">Repeat again to clear scores</string>
     <string name="clearScoresTextTrue">Scores are now cleared</string>
 
     <!-- Menu buttons -->
@@ -64,4 +69,15 @@
 
     <!-- For empty states -->
     <string name="emptyListView">No one played this mode</string>
+
+    <!-- For Sandbox Mode Items -->
+    <string name="FormText">Form of cells:</string>
+    <string name="FormSquare">Square</string>
+    <string name="FormHex">Hex</string>
+    <string name="FormTriangle">Triangle</string>
+
+    <string name="SizeText">Size:</string>
+    <string name="SizeW">Width:</string>
+    <string name="SizeH">Height:</string>
+
 </resources>

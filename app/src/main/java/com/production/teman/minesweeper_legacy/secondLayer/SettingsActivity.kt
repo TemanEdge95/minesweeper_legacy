@@ -1,10 +1,13 @@
 package com.production.teman.minesweeper_legacy.secondLayer
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.app.AlertDialog
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -16,8 +19,8 @@ private lateinit var floatingButtonBack: FloatingActionButton
 private lateinit var decorView: View
 private var uiOptions: Int = 0
 
-private var clearFlag: Boolean = false
 private lateinit var clearToast: Toast
+private lateinit var alertDialogue: AlertDialog
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -34,8 +37,6 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         val buttonAbout: Button = findViewById(R.id.buttonAbout)
         buttonClear.setOnClickListener(this)
         buttonAbout.setOnClickListener(this)
-
-        clearFlag = false
     }
 
     override fun onClick(v: View?) {
@@ -44,12 +45,17 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
             R.id.buttonClearScores -> {
-                if (!clearFlag) {
-                    clearToast= Toast.makeText(this, R.string.clearScoresText, Toast.LENGTH_SHORT)
-                    clearToast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 650)
-                    clearToast.show()
-                    clearFlag = true
-                } else {
+
+                var adClearBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
+                var adClearView: View = layoutInflater.inflate(R.layout.clear_alert_dialogue, null)
+                var buttonCancel: Button = adClearView.findViewById(R.id.buttonClearCancel)
+                var buttonAccept: Button = adClearView.findViewById(R.id.buttonClearAccept)
+
+                buttonCancel.setOnClickListener(View.OnClickListener {
+                    alertDialogue.cancel()
+                    fullscreenEnabler()
+                })
+                buttonAccept.setOnClickListener(View.OnClickListener {
                     var filePath = applicationInfo.dataDir
                     var fileName = ""
                     for (i in 0..2) {
@@ -65,8 +71,22 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                     clearToast= Toast.makeText(this, R.string.clearScoresTextTrue, Toast.LENGTH_SHORT)
                     clearToast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 650)
                     clearToast.show()
-                    clearFlag = false
-                }
+
+                    alertDialogue.cancel()
+
+                    fullscreenEnabler()
+                })
+                adClearBuilder.setView(adClearView)
+                alertDialogue = adClearBuilder.create()
+
+                alertDialogue.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_IMMERSIVE or
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_FULLSCREEN
+
+                alertDialogue.setCanceledOnTouchOutside(false)
+                alertDialogue.show()
             }
             R.id.buttonAbout -> {
                 startActivity(Intent(this, AboutActivity::class.java))
