@@ -2,12 +2,18 @@ package com.production.teman.minesweeper_legacy.fragments
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -32,7 +38,40 @@ private var fieldHeight: Int = 9
 
 private lateinit var buttonDone: FloatingActionButton
 
+private var wAutoIncrement: Boolean = false
+private var wAutoDecrement: Boolean = false
+private var hAutoIncrement: Boolean = false
+private var hAutoDecrement: Boolean = false
+private var REP_DELAY: Long = 50
+private val repeatUpdateHandler = Handler()
+
 private var sendParamsText: String = ""
+
+internal class RptUpdater : Runnable {
+
+    private var sbf: SandboxFragment = SandboxFragment()
+
+    override fun run() {
+        if (wAutoIncrement) {
+            sbf.widthIncrement()
+            if ( fieldWidth != 30 ) repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
+
+        } else if (wAutoDecrement) {
+            sbf.widthDecrement()
+            if ( fieldWidth != 5 )repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
+
+        }
+        if (hAutoIncrement) {
+            sbf.heightIncrement()
+            if ( fieldHeight != 30 )repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
+
+        } else if (hAutoDecrement) {
+            sbf.heightDecrement()
+            if ( fieldHeight != 5 )repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
+
+        }
+    }
+}
 
 class SandboxFragment : Fragment() {
     private var param1: String? = null
@@ -87,30 +126,78 @@ class SandboxFragment : Fragment() {
         buttonHeightAdd = rootView.findViewById(R.id.buttonHeightAdd)
         buttonHeightSub = rootView.findViewById(R.id.buttonHeightSub)
 
+        //short
         buttonWidthAdd.setOnClickListener { view ->
-            fieldWidth++
-            textWidth.text = "" + fieldWidth
-
+            widthIncrement()
             fieldParamsCheck()
         }
         buttonWidthSub.setOnClickListener { view ->
-            fieldWidth--
-            textWidth.text = "" + fieldWidth
-
+            widthDecrement()
             fieldParamsCheck()
         }
         buttonHeightAdd.setOnClickListener { view ->
-            fieldHeight++
-            textHeight.text = "" + fieldHeight
-
+            heightIncrement()
             fieldParamsCheck()
         }
         buttonHeightSub.setOnClickListener { view ->
-            fieldHeight--
-            textHeight.text = "" + fieldHeight
-
+            heightDecrement()
             fieldParamsCheck()
         }
+
+        //long
+        buttonWidthAdd.setOnLongClickListener { view ->
+            wAutoIncrement = true
+            repeatUpdateHandler.post(RptUpdater())
+        }
+        buttonWidthSub.setOnLongClickListener { view ->
+            wAutoDecrement = true
+            repeatUpdateHandler.post(RptUpdater())
+        }
+        buttonHeightAdd.setOnLongClickListener { view ->
+            hAutoIncrement = true
+            repeatUpdateHandler.post(RptUpdater())
+        }
+        buttonHeightSub.setOnLongClickListener { view ->
+            hAutoDecrement = true
+            repeatUpdateHandler.post(RptUpdater())
+        }
+        //onTouch
+        buttonWidthAdd.setOnTouchListener( object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_UP -> wAutoIncrement = false
+                    MotionEvent.ACTION_CANCEL -> wAutoIncrement = false
+                }
+                return false
+            }
+        })
+        buttonWidthSub.setOnTouchListener( object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_UP -> wAutoDecrement = false
+                    MotionEvent.ACTION_CANCEL -> wAutoDecrement = false
+                }
+                return false
+            }
+        })
+        buttonHeightAdd.setOnTouchListener( object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_UP -> hAutoIncrement = false
+                    MotionEvent.ACTION_CANCEL -> hAutoIncrement = false
+                }
+                return false
+            }
+        })
+        buttonHeightSub.setOnTouchListener( object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_UP -> hAutoDecrement = false
+                    MotionEvent.ACTION_CANCEL -> hAutoDecrement = false
+                }
+                return false
+            }
+        })
 
         buttonDone = rootView.findViewById(R.id.floatingButtonSandbox)
         buttonDone.setOnClickListener { view ->
@@ -127,18 +214,70 @@ class SandboxFragment : Fragment() {
         return rootView
     }
 
+    fun widthIncrement() {
+        fieldWidth++
+        textWidth.text = "" + fieldWidth
+    }
+    fun widthDecrement() {
+        fieldWidth--
+        textWidth.text = "" + fieldWidth
+    }
+    fun heightIncrement() {
+        fieldHeight++
+        textHeight.text = "" + fieldHeight
+    }
+    fun heightDecrement() {
+        fieldHeight--
+        textHeight.text = "" + fieldHeight
+    }
+
     fun fieldParamsCheck() {
-        if (fieldWidth != 30) buttonWidthAdd.visibility = View.VISIBLE
-        else buttonWidthAdd.visibility = View.INVISIBLE
+        buttonWidthAdd.isEnabled = fieldWidth != 30
+        buttonWidthSub.isEnabled = fieldWidth != 5
 
-        if (fieldWidth != 5) buttonWidthSub.visibility = View.VISIBLE
-        else buttonWidthSub.visibility = View.INVISIBLE
+        buttonHeightAdd.isEnabled = fieldHeight != 30
+        buttonHeightSub.isEnabled = fieldHeight != 5
 
-        if (fieldHeight != 30) buttonHeightAdd.visibility = View.VISIBLE
-        else buttonHeightAdd.visibility = View.INVISIBLE
-
-        if (fieldHeight != 5) buttonHeightSub.visibility = View.VISIBLE
-        else buttonHeightSub.visibility = View.INVISIBLE
+        when {
+            fieldWidth != 30 -> {
+                buttonWidthAdd.background.clearColorFilter()
+                buttonWidthAdd.clearColorFilter()
+            }
+            else -> {
+                buttonWidthAdd.background.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+                buttonWidthAdd.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+            }
+        }
+        when {
+            fieldWidth != 5 -> {
+                buttonWidthSub.background.clearColorFilter()
+                buttonWidthSub.clearColorFilter()
+            }
+            else -> {
+                buttonWidthSub.background.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+                buttonWidthSub.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+            }
+        }
+        when {
+            fieldHeight != 30 -> {
+                buttonHeightAdd.background.clearColorFilter()
+                buttonHeightAdd.clearColorFilter()
+            }
+            else -> {
+                buttonHeightAdd.background.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+                buttonHeightAdd.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+            }
+        }
+        when {
+            fieldHeight != 5 -> {
+                buttonHeightSub.background.clearColorFilter()
+                buttonHeightSub.clearColorFilter()
+            }
+            else -> {
+                buttonHeightSub.background.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+                buttonHeightSub.setColorFilter(ContextCompat.getColor(activity!!, R.color.background), PorterDuff.Mode.MULTIPLY)
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
