@@ -30,7 +30,8 @@
         <activity android:name=".thirdLayer.FullScoreActivity" />
         <activity android:name=".items.fullScoreListItemActivity" />
         <activity android:name=".thirdLayer.AboutActivity" />
-        <activity android:name=".items.ClassicModeItem"></activity>
+        <activity android:name=".items.ClassicModeItem" />
+        <activity android:name=".fourthLayer.GameFieldActivity"></activity>
     </application>
 
 </manifest>

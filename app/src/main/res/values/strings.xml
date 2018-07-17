@@ -13,6 +13,7 @@
     <string name="backToastText">Repeat again to exit</string>
     <string name="backPresets">Repeat again to quit presets</string>
     <string name="clearScoresTextTrue">Scores are now cleared</string>
+    <string name="toastReturn">Repeat again to stop your game</string>
 
     <!-- Menu buttons -->
     <string name="menuButtonPlay">Play</string>
@@ -79,5 +80,8 @@
     <string name="SizeText">Size:</string>
     <string name="SizeW">Width:</string>
     <string name="SizeH">Height:</string>
+
+    <!-- Pause menu -->
+    <string name="PauseMenuText">Paused</string>
 
 </resources>

@@ -1,12 +1,9 @@
 package com.production.teman.minesweeper_legacy.fragments
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.ColorFilter
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
@@ -19,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.*
 
 import com.production.teman.minesweeper_legacy.R
+import com.production.teman.minesweeper_legacy.fourthLayer.GameFieldActivity
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -45,7 +43,7 @@ private var hAutoDecrement: Boolean = false
 private var REP_DELAY: Long = 50
 private val repeatUpdateHandler = Handler()
 
-private var sendParamsText: String = ""
+private var gameFieldActivity: GameFieldActivity = GameFieldActivity()
 
 internal class RptUpdater : Runnable {
 
@@ -165,7 +163,11 @@ class SandboxFragment : Fragment() {
         buttonWidthAdd.setOnTouchListener( object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
-                    MotionEvent.ACTION_UP -> wAutoIncrement = false
+                    MotionEvent.ACTION_UP -> {
+                        wAutoIncrement = false
+                        fieldParamsCheck()
+                    }
+                    MotionEvent.ACTION_POINTER_DOWN -> fieldParamsCheck()
                     MotionEvent.ACTION_CANCEL -> wAutoIncrement = false
                 }
                 return false
@@ -174,7 +176,11 @@ class SandboxFragment : Fragment() {
         buttonWidthSub.setOnTouchListener( object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
-                    MotionEvent.ACTION_UP -> wAutoDecrement = false
+                    MotionEvent.ACTION_UP -> {
+                        wAutoDecrement = false
+                        fieldParamsCheck()
+                    }
+                    MotionEvent.ACTION_DOWN -> fieldParamsCheck()
                     MotionEvent.ACTION_CANCEL -> wAutoDecrement = false
                 }
                 return false
@@ -183,7 +189,11 @@ class SandboxFragment : Fragment() {
         buttonHeightAdd.setOnTouchListener( object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
-                    MotionEvent.ACTION_UP -> hAutoIncrement = false
+                    MotionEvent.ACTION_UP -> {
+                        hAutoIncrement = false
+                        fieldParamsCheck()
+                    }
+                    MotionEvent.ACTION_DOWN -> fieldParamsCheck()
                     MotionEvent.ACTION_CANCEL -> hAutoIncrement = false
                 }
                 return false
@@ -192,7 +202,11 @@ class SandboxFragment : Fragment() {
         buttonHeightSub.setOnTouchListener( object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
-                    MotionEvent.ACTION_UP -> hAutoDecrement = false
+                    MotionEvent.ACTION_UP -> {
+                        hAutoDecrement = false
+                        fieldParamsCheck()
+                    }
+                    MotionEvent.ACTION_DOWN -> fieldParamsCheck()
                     MotionEvent.ACTION_CANCEL -> hAutoDecrement = false
                 }
                 return false
@@ -201,14 +215,17 @@ class SandboxFragment : Fragment() {
 
         buttonDone = rootView.findViewById(R.id.floatingButtonSandbox)
         buttonDone.setOnClickListener { view ->
-            sendParamsText = "" + fieldWidth + "x" + fieldHeight + ";"
-            sendParamsText += when {
-                checkBoxSquare.isChecked -> "Square"
-                checkBoxHex.isChecked -> "Hex"
-                else -> "Triangle"
-            }
+            gameFieldActivity.setFieldParams(
+                    "Sandbox",
+                    when {
+                        checkBoxSquare.isChecked -> "Square"
+                        checkBoxHex.isChecked -> "Hex"
+                        else -> "Triangle"
+                    },
+                    fieldWidth,
+                    fieldHeight)
 
-            Toast.makeText(activity, sendParamsText, Toast.LENGTH_SHORT).show()
+            context!!.startActivity(Intent(context, GameFieldActivity::class.java))
         }
 
         return rootView
