@@ -16,8 +16,6 @@ import com.production.teman.minesweeper_legacy.fourthLayer.GameFieldActivity
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-private lateinit var buttonDone: FloatingActionButton
-
 private var gameFieldActivity: GameFieldActivity = GameFieldActivity()
 
 class AdventureFragment : Fragment() {
@@ -36,17 +34,6 @@ class AdventureFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         var rootView: View = inflater.inflate(R.layout.fragment_adventure, container, false)
-
-        buttonDone = rootView.findViewById(R.id.floatingButtonAdventure)
-        buttonDone.setOnClickListener { view ->
-            gameFieldActivity.setFieldParams(
-                    "Adventure",
-                    "None",
-                    0,
-                    0)
-
-            context!!.startActivity(Intent(context, GameFieldActivity::class.java))
-        }
 
         return rootView
     }

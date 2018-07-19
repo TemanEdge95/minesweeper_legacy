@@ -1,5 +1,6 @@
 package com.production.teman.minesweeper_legacy.thirdLayer
 
+import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,12 +18,15 @@ import android.widget.TextView
 import android.widget.Toast
 import com.production.teman.minesweeper_legacy.R
 import com.production.teman.minesweeper_legacy.adapters.classicModeAdapter
+import com.production.teman.minesweeper_legacy.fourthLayer.GameFieldActivity
 import com.production.teman.minesweeper_legacy.fragments.AdventureFragment
 import com.production.teman.minesweeper_legacy.fragments.ClassicFragment
 import com.production.teman.minesweeper_legacy.fragments.SandboxFragment
+import kotlinx.android.synthetic.main.fragment_sandbox.*
 import java.util.concurrent.TimeUnit
 
 private lateinit var floatingButtonBack: FloatingActionButton
+private lateinit var floatingButtonAccept: FloatingActionButton
 private lateinit var decorView: View
 private var uiOptions: Int = 0
 
@@ -40,7 +44,12 @@ private lateinit var gamemodeHead: Array<String>
 private lateinit var threadTimerPresets: Thread
 private lateinit var imageViewIcon: ImageView
 
+private var sandboxFragment: SandboxFragment = SandboxFragment()
 
+private var gameFieldActivity: GameFieldActivity = GameFieldActivity()
+
+var fieldWidthAdapter: Int = 0
+var fieldHeightAdapter: Int = 0
 
 class GamePresetsActivity : AppCompatActivity(), View.OnClickListener,
         ClassicFragment.OnFragmentInteractionListener,
@@ -58,6 +67,9 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener,
 
         floatingButtonBack = findViewById(R.id.floatingButtonBack)
         floatingButtonBack.setOnClickListener(this)
+
+        floatingButtonAccept = findViewById(R.id.floatingButtonBackAccept)
+        floatingButtonAccept.setOnClickListener(this)
 
         backFlag = false
 
@@ -94,6 +106,38 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener,
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.floatingButtonBack -> backPressed()
+            R.id.floatingButtonBackAccept -> {
+                when (gamemodeSelected) {
+                    0 -> {
+                        gameFieldActivity.setFieldParams("Classic","Square",
+                                fieldWidthAdapter,
+                                fieldHeightAdapter)
+                        this.startActivity(Intent(this, GameFieldActivity::class.java))
+                    }
+                    1 -> {
+                        gameFieldActivity.setFieldParams(
+                                "Sandbox",
+                                when {
+                                    checkBoxSquare.isChecked -> "Square"
+                                    checkBoxHex.isChecked -> "Hex"
+                                    else -> "Triangle"
+                                },
+                                sandboxFragment.getFieldWidth(),
+                                sandboxFragment.getFieldHeight())
+
+                        this.startActivity(Intent(this, GameFieldActivity::class.java))
+                    }
+                    2 -> {
+                        gameFieldActivity.setFieldParams(
+                                "Adventure",
+                                "None",
+                                0,
+                                0)
+
+                        this.startActivity(Intent(this, GameFieldActivity::class.java))
+                    }
+                }
+            }
         }
     }
 
@@ -142,5 +186,13 @@ class GamePresetsActivity : AppCompatActivity(), View.OnClickListener,
         super.onResume()
 
         fullscreenEnabler()
+    }
+
+    fun setFieldWidthAdapter(width: Int) {
+        fieldWidthAdapter = width
+    }
+
+    fun setFieldHeightAdapter(height: Int) {
+        fieldHeightAdapter = height
     }
 }

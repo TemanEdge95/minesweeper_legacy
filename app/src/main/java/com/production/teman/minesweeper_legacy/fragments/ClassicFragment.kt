@@ -19,10 +19,10 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 private lateinit var rv: RecyclerView
-private lateinit var rvAdapter: RecyclerView.Adapter<*>
-private lateinit var rvManager: RecyclerView.LayoutManager
 private lateinit var snapHelper: LinearSnapHelper
 private lateinit var modeList: Array<String>
+
+
 
 class ClassicFragment : Fragment() {
     private var param1: String? = null

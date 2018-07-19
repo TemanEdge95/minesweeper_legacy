@@ -34,8 +34,6 @@ private lateinit var buttonHeightSub: FloatingActionButton
 private var fieldWidth: Int = 9
 private var fieldHeight: Int = 9
 
-private lateinit var buttonDone: FloatingActionButton
-
 private var wAutoIncrement: Boolean = false
 private var wAutoDecrement: Boolean = false
 private var hAutoIncrement: Boolean = false
@@ -213,21 +211,6 @@ class SandboxFragment : Fragment() {
             }
         })
 
-        buttonDone = rootView.findViewById(R.id.floatingButtonSandbox)
-        buttonDone.setOnClickListener { view ->
-            gameFieldActivity.setFieldParams(
-                    "Sandbox",
-                    when {
-                        checkBoxSquare.isChecked -> "Square"
-                        checkBoxHex.isChecked -> "Hex"
-                        else -> "Triangle"
-                    },
-                    fieldWidth,
-                    fieldHeight)
-
-            context!!.startActivity(Intent(context, GameFieldActivity::class.java))
-        }
-
         return rootView
     }
 
@@ -313,5 +296,13 @@ class SandboxFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
+    }
+
+    fun getFieldWidth() : Int {
+        return fieldWidth
+    }
+
+    fun getFieldHeight(): Int {
+        return fieldHeight
     }
 }

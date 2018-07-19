@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".thirdLayer.GamePresetsActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingButtonBackAccept"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/floatingButtonBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_done" />
+
     <FrameLayout
         android:id="@+id/framePresets"
         android:layout_width="wrap_content"
@@ -14,7 +28,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/floatingButtonBack"
+        app:layout_constraintBottom_toTopOf="@+id/floatingButtonBackAccept"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPresets">
