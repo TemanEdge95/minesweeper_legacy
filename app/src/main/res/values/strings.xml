@@ -3,6 +3,9 @@
 
     <string name="splashScreenText">Developed by Artyom Zyev</string>
 
+    <!-- Version -->
+    <string name="appStageName">Beta</string>
+
     <!-- For alert dialogues -->
     <string name="alertClear">This action will clear all your scores.\n
     Accept it?</string>

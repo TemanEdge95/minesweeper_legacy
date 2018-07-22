@@ -13,11 +13,14 @@ import com.production.teman.minesweeper_legacy.secondLayer.ScoresActivity
 import com.production.teman.minesweeper_legacy.secondLayer.SettingsActivity
 import java.io.File
 import java.util.concurrent.TimeUnit
+import com.production.teman.minesweeper_legacy.Support.BackgroundSoundService
 
 lateinit var file: File
 
 private var exitFlag: Boolean = false
 private lateinit var threadTimerMain: Thread
+
+private lateinit var serviceSound: Intent
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -36,6 +39,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonSettings.setOnClickListener(this)
 
         checkScoreFiles()
+
+        //serviceSound = Intent(this, BackgroundSoundService::class.java)
+        //startService(serviceSound)
     }
 
     private fun checkScoreFiles() {
@@ -95,7 +101,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-
             }
         }
         threadTimerMain.start()
@@ -103,7 +108,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-
         fullscreenEnabler()
     }
 }
