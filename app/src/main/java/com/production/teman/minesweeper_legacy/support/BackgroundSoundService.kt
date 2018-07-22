@@ -1,4 +1,4 @@
-package com.production.teman.minesweeper_legacy.Support
+package com.production.teman.minesweeper_legacy.support
 
 import android.content.Intent
 import android.os.IBinder
@@ -9,7 +9,6 @@ import com.production.teman.minesweeper_legacy.R
 class BackgroundSoundService : Service() {
     lateinit var player: MediaPlayer
     override fun onBind(arg0: Intent): IBinder? {
-
         return null
     }
 

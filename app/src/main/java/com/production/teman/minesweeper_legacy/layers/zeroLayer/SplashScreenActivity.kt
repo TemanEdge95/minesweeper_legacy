@@ -1,22 +1,15 @@
-package com.production.teman.minesweeper_legacy
+package com.production.teman.minesweeper_legacy.layers.zeroLayer
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.media.SoundPool
-import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import com.production.teman.minesweeper_legacy.firstLayer.MainActivity
+import com.production.teman.minesweeper_legacy.R
+import com.production.teman.minesweeper_legacy.layers.firstLayer.MainActivity
 
-private lateinit var floatingButtonBack: FloatingActionButton
-private lateinit var decorView: View
-private var uiOptions: Int = 0
 private lateinit var thread: Thread
-private lateinit var imageViewSplash: ImageView
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -26,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         fullscreenEnabler()
 
-        imageViewSplash = findViewById(R.id.imageViewSplashScreen)
+        val imageViewSplash: ImageView = findViewById(R.id.imageViewSplashScreen)
         imageViewSplash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.alpha_anim))
 
         thread = object : Thread() {
@@ -45,8 +38,8 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun fullscreenEnabler() {
-        decorView = window.decorView
-        uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        val decorView = window.decorView
+        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         decorView.systemUiVisibility = uiOptions
     }
 

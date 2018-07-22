@@ -2,7 +2,6 @@ package com.production.teman.minesweeper_legacy.adapters
 
 import android.app.Activity
 import android.content.Context
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +21,11 @@ class FullScoreListViewAdapter(private var activity: Activity, private var items
         var imageView: ImageView? = null
 
         init {
-            this.txtName = row?.findViewById<TextView>(R.id.textViewName)
-            this.txtTitle = row?.findViewById<TextView>(R.id.textViewTitle)
-            this.txtScore = row?.findViewById<TextView>(R.id.textViewScore)
-            this.txtCounter = row?.findViewById<TextView>(R.id.textViewCounter)
-            this.imageView = row?.findViewById<ImageView>(R.id.imageViewPlace)
+            this.txtName = row?.findViewById(R.id.textViewName)
+            this.txtTitle = row?.findViewById(R.id.textViewTitle)
+            this.txtScore = row?.findViewById(R.id.textViewScore)
+            this.txtCounter = row?.findViewById(R.id.textViewCounter)
+            this.imageView = row?.findViewById(R.id.imageViewPlace)
         }
     }
 
@@ -34,10 +33,10 @@ class FullScoreListViewAdapter(private var activity: Activity, private var items
         val view: View?
         val viewHolder: ViewHolder
         if (convertView == null) {
-            val inflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.activity_full_score_list_item, null)
             viewHolder = ViewHolder(view)
-            view?.tag = viewHolder
+            view.tag = viewHolder
         } else {
             view = convertView
             viewHolder = view.tag as ViewHolder
@@ -55,8 +54,7 @@ class FullScoreListViewAdapter(private var activity: Activity, private var items
             2 -> viewHolder.imageView?.setImageResource(R.drawable.ic_trophy_third)
         }
 
-        if (position > 2) viewHolder.imageView?.visibility = View.INVISIBLE
-        else viewHolder.imageView?.visibility = View.VISIBLE
+        viewHolder.imageView?.visibility = if (position > 2) View.INVISIBLE else View.VISIBLE
 
         return view as View
     }

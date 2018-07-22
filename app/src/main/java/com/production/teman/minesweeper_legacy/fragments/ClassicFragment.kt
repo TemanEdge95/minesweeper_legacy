@@ -1,6 +1,5 @@
 package com.production.teman.minesweeper_legacy.fragments
 
-import android.app.Application
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -11,18 +10,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.production.teman.minesweeper_legacy.R
-import com.production.teman.minesweeper_legacy.adapters.classicModeAdapter
+import com.production.teman.minesweeper_legacy.adapters.ClassicModeAdapter
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-private lateinit var rv: RecyclerView
 private lateinit var snapHelper: LinearSnapHelper
 private lateinit var modeList: Array<String>
-
-
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 class ClassicFragment : Fragment() {
     private var param1: String? = null
@@ -40,13 +34,13 @@ class ClassicFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        var rootView: View = inflater.inflate(R.layout.fragment_classic, container, false)
+        val rootView: View = inflater.inflate(R.layout.fragment_classic, container, false)
 
         modeList = arrayOf("9x9", "12x12", "15x15", "20x20")
 
-        rv = rootView.findViewById(R.id.classicRecycler)
+        val rv: RecyclerView = rootView.findViewById(R.id.classicRecycler)
         rv.layoutManager = GridLayoutManager(activity, 2)
-        rv.adapter = classicModeAdapter(modeList, activity!!)
+        rv.adapter = ClassicModeAdapter(modeList, activity!!)
 
         snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rv)

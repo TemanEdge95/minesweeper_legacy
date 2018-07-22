@@ -1,4 +1,4 @@
-package com.production.teman.minesweeper_legacy.Support
+package com.production.teman.minesweeper_legacy.support
 
 import android.content.res.Resources
 import android.graphics.Canvas
@@ -49,7 +49,6 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
 
         val left = activeChild.left
         val width = activeChild.width
-        val right = activeChild.right
 
         val progress = mInterpolator.getInterpolation(left * -1 / width.toFloat())
 

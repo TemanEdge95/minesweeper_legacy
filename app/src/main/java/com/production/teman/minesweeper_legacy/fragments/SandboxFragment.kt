@@ -1,7 +1,6 @@
 package com.production.teman.minesweeper_legacy.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
@@ -14,57 +13,45 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-
 import com.production.teman.minesweeper_legacy.R
-import com.production.teman.minesweeper_legacy.fourthLayer.GameFieldActivity
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
-private lateinit var checkBoxSquare: CheckBox
-private lateinit var checkBoxHex: CheckBox
-private lateinit var checkBoxTriangle: CheckBox
-
-private lateinit var textWidth: TextView
-private lateinit var buttonWidthAdd: FloatingActionButton
-private lateinit var buttonWidthSub: FloatingActionButton
-private lateinit var textHeight: TextView
-private lateinit var buttonHeightAdd: FloatingActionButton
-private lateinit var buttonHeightSub: FloatingActionButton
 private var fieldWidth: Int = 9
 private var fieldHeight: Int = 9
-
+private var REP_DELAY: Long = 50
+private val repeatUpdateHandler = Handler()
 private var wAutoIncrement: Boolean = false
 private var wAutoDecrement: Boolean = false
 private var hAutoIncrement: Boolean = false
 private var hAutoDecrement: Boolean = false
-private var REP_DELAY: Long = 50
-private val repeatUpdateHandler = Handler()
-
-private var gameFieldActivity: GameFieldActivity = GameFieldActivity()
+private lateinit var textWidth: TextView
+private lateinit var textHeight: TextView
+private lateinit var buttonWidthAdd: FloatingActionButton
+private lateinit var buttonWidthSub: FloatingActionButton
+private lateinit var buttonHeightAdd: FloatingActionButton
+private lateinit var buttonHeightSub: FloatingActionButton
 
 internal class RptUpdater : Runnable {
 
     private var sbf: SandboxFragment = SandboxFragment()
 
+
     override fun run() {
         if (wAutoIncrement) {
             sbf.widthIncrement()
             if ( fieldWidth != 30 ) repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
-
         } else if (wAutoDecrement) {
             sbf.widthDecrement()
             if ( fieldWidth != 5 )repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
-
         }
+
         if (hAutoIncrement) {
             sbf.heightIncrement()
             if ( fieldHeight != 30 )repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
-
         } else if (hAutoDecrement) {
             sbf.heightDecrement()
             if ( fieldHeight != 5 )repeatUpdateHandler.postDelayed(RptUpdater(), REP_DELAY)
-
         }
     }
 }
@@ -85,28 +72,28 @@ class SandboxFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        var rootView: View = inflater.inflate(R.layout.fragment_sandbox, container, false)
+        val rootView: View = inflater.inflate(R.layout.fragment_sandbox, container, false)
 
         fieldWidth = 9
         fieldHeight = 9
 
-        checkBoxSquare = rootView.findViewById(R.id.checkBoxSquare)
-        checkBoxHex = rootView.findViewById(R.id.checkBoxHex)
-        checkBoxTriangle = rootView.findViewById(R.id.checkBoxTriangle)
+        val checkBoxSquare: CheckBox = rootView.findViewById(R.id.checkBoxSquare)
+        val checkBoxHex: CheckBox = rootView.findViewById(R.id.checkBoxHex)
+        val checkBoxTriangle: CheckBox = rootView.findViewById(R.id.checkBoxTriangle)
 
         checkBoxSquare.isChecked = true
 
-        checkBoxSquare.setOnClickListener { view ->
+        checkBoxSquare.setOnClickListener {
             checkBoxSquare.isChecked = true
             checkBoxHex.isChecked = false
             checkBoxTriangle.isChecked = false
         }
-        checkBoxHex.setOnClickListener { view ->
+        checkBoxHex.setOnClickListener {
             checkBoxSquare.isChecked = false
             checkBoxHex.isChecked = true
             checkBoxTriangle.isChecked = false
         }
-        checkBoxTriangle.setOnClickListener { view ->
+        checkBoxTriangle.setOnClickListener {
             checkBoxSquare.isChecked = false
             checkBoxHex.isChecked = false
             checkBoxTriangle.isChecked = true
@@ -123,93 +110,86 @@ class SandboxFragment : Fragment() {
         buttonHeightSub = rootView.findViewById(R.id.buttonHeightSub)
 
         //short
-        buttonWidthAdd.setOnClickListener { view ->
+        buttonWidthAdd.setOnClickListener {
             widthIncrement()
             fieldParamsCheck()
         }
-        buttonWidthSub.setOnClickListener { view ->
+        buttonWidthSub.setOnClickListener {
             widthDecrement()
             fieldParamsCheck()
         }
-        buttonHeightAdd.setOnClickListener { view ->
+        buttonHeightAdd.setOnClickListener {
             heightIncrement()
             fieldParamsCheck()
         }
-        buttonHeightSub.setOnClickListener { view ->
+        buttonHeightSub.setOnClickListener {
             heightDecrement()
             fieldParamsCheck()
         }
 
         //long
-        buttonWidthAdd.setOnLongClickListener { view ->
+        buttonWidthAdd.setOnLongClickListener {
             wAutoIncrement = true
             repeatUpdateHandler.post(RptUpdater())
         }
-        buttonWidthSub.setOnLongClickListener { view ->
+        buttonWidthSub.setOnLongClickListener {
             wAutoDecrement = true
             repeatUpdateHandler.post(RptUpdater())
         }
-        buttonHeightAdd.setOnLongClickListener { view ->
+        buttonHeightAdd.setOnLongClickListener {
             hAutoIncrement = true
             repeatUpdateHandler.post(RptUpdater())
         }
-        buttonHeightSub.setOnLongClickListener { view ->
+        buttonHeightSub.setOnLongClickListener {
             hAutoDecrement = true
             repeatUpdateHandler.post(RptUpdater())
         }
-        //onTouch
-        buttonWidthAdd.setOnTouchListener( object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_UP -> {
-                        wAutoIncrement = false
-                        fieldParamsCheck()
-                    }
-                    MotionEvent.ACTION_POINTER_DOWN -> fieldParamsCheck()
-                    MotionEvent.ACTION_CANCEL -> wAutoIncrement = false
+
+        //touch
+        buttonWidthAdd.setOnTouchListener { _, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_UP -> {
+                    wAutoIncrement = false
+                    fieldParamsCheck()
                 }
-                return false
+                MotionEvent.ACTION_POINTER_DOWN -> fieldParamsCheck()
+                MotionEvent.ACTION_CANCEL -> wAutoIncrement = false
             }
-        })
-        buttonWidthSub.setOnTouchListener( object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_UP -> {
-                        wAutoDecrement = false
-                        fieldParamsCheck()
-                    }
-                    MotionEvent.ACTION_DOWN -> fieldParamsCheck()
-                    MotionEvent.ACTION_CANCEL -> wAutoDecrement = false
+            false
+        }
+        buttonWidthSub.setOnTouchListener { _, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_UP -> {
+                    wAutoDecrement = false
+                    fieldParamsCheck()
                 }
-                return false
+                MotionEvent.ACTION_DOWN -> fieldParamsCheck()
+                MotionEvent.ACTION_CANCEL -> wAutoDecrement = false
             }
-        })
-        buttonHeightAdd.setOnTouchListener( object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_UP -> {
-                        hAutoIncrement = false
-                        fieldParamsCheck()
-                    }
-                    MotionEvent.ACTION_DOWN -> fieldParamsCheck()
-                    MotionEvent.ACTION_CANCEL -> hAutoIncrement = false
+            false
+        }
+        buttonHeightAdd.setOnTouchListener { _, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_UP -> {
+                    hAutoIncrement = false
+                    fieldParamsCheck()
                 }
-                return false
+                MotionEvent.ACTION_DOWN -> fieldParamsCheck()
+                MotionEvent.ACTION_CANCEL -> hAutoIncrement = false
             }
-        })
-        buttonHeightSub.setOnTouchListener( object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_UP -> {
-                        hAutoDecrement = false
-                        fieldParamsCheck()
-                    }
-                    MotionEvent.ACTION_DOWN -> fieldParamsCheck()
-                    MotionEvent.ACTION_CANCEL -> hAutoDecrement = false
+            false
+        }
+        buttonHeightSub.setOnTouchListener { _, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_UP -> {
+                    hAutoDecrement = false
+                    fieldParamsCheck()
                 }
-                return false
+                MotionEvent.ACTION_DOWN -> fieldParamsCheck()
+                MotionEvent.ACTION_CANCEL -> hAutoDecrement = false
             }
-        })
+            false
+        }
 
         return rootView
     }
